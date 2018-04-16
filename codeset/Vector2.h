@@ -4,9 +4,9 @@ public: //公开的方法，通过方法与属性进行交互
 
     double &operator[](int i);
 
-    int size();
+    int size() const;// 不可修改
 
-private:
+private://不可以直接访问属性
     double *elem;
     int sz;
 };

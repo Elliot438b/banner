@@ -27,19 +27,6 @@ struct Vector {
     double *b;
 };
 
-class Vector2 {// 在源文件中定义一个类
-public: //公开的方法，通过方法与属性进行交互
-    Vector2(int s) : elem{new double[s]}, sz{s} {}
-
-    double &operator[](int i) { return elem[i]; }
-
-    int size() { return sz; }
-
-private: //不可以直接访问属性
-    double *elem;
-    int sz;
-};
-
 // Vector 初始化方法
 void vector_init(Vector &v, int s) {//注意这里要用引用，否则v在后面的操作会在内存中复制一份变量而不是修改引用本身（这与java是不同的）
     v.a = s;
