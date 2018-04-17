@@ -11,12 +11,7 @@ Vector2::Vector2(int s)
 }
 
 Vector2::Vector2(std::initializer_list<double> lst) : elem{new double[lst.size()]}, sz{lst.size()} {
-    copy(lst.begin(), lst.end(), elem);
-}
-
-Vector2::Vector2(std::initializer_list<double> lst) {
-    elem{new double[lst.size()]}, sz{lst.size()};
-    copy(lst.begin(), lst.end(), elem);
+    std::copy(lst.begin(), lst.end(), elem);
 }
 
 double &Vector2::operator[](int i) {
@@ -26,9 +21,4 @@ double &Vector2::operator[](int i) {
 
 int Vector2::size() const {//Vector2::这种写法用来代表实现了哪个接口的哪个方法
     return sz;
-}
-
-// 加入析构函数
-~Vector2() {
-    delete[] elem;
 }
