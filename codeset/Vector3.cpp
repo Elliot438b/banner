@@ -6,15 +6,33 @@
 #include "Vector2.h"
 #include <list>
 
+// 实现Vector2.h头文件中拷贝操作
+// 先用初始化器按照实参原对象的大小将内存空间分配出来。
+Vector2::Vector2(const Vector2 &a) : elem{new double[sz]}, sz{a.sz} {
+    // 执行数据的复制操作
+    for (int i = 0; i != sz; i++)
+        elem[i] = a.elem[i];
+}
+
+// 实现Vector2.h头文件中的移动构造函数
+// 先用初始化器按照实参原对象的大小将内存空间分配出来。
+Vector2::Vector2(Vector2 &&a) : elem{a.elem}, sz{a.sz} {
+    // 清除a的数据
+    a.elem = nullptr;
+    a.sz = 0;
+}
+
+
 /**
  * Container接口有两个实现类：Vector_container以及List_container
  */
 
 // Vector_container类的定义
 class Vector_container : public Container {// 派生自（derived）Container，或者实现了Container接口
-    Vector2 v;
+    Vector2 v = Vector2(0);
 public: // 成员方法都重用了Vector2的具体实现方法。
     Vector_container(int s) : v(s) {}
+
 
     ~Vector_container() {}// 覆盖了基类的析构函数~Container()
 
@@ -24,6 +42,10 @@ public: // 成员方法都重用了Vector2的具体实现方法。
 
     int size() const {
         return v.size();
+    }
+
+    Vector_container(const Vector_container &vc) : v(vc.size()) {
+        v = Vector2(vc.v);
     }
 };
 
@@ -63,9 +85,12 @@ void use(Container &c) {// 方法体内部完全使用了Container的方法，�
 void g() {
 //    Vector_container vc{1, 2, 3, 4, 5, 6};
     Vector_container vc(3);// 使用了Vector_container
-    vc[1] = 1;
-    vc[2] = 3;
-    use(vc);
+    vc[0] = 112;
+    vc[1] = 11;
+    vc[2] = 32;
+//    use(vc);
+    Vector_container vc1 = Vector_container(vc);
+    use(vc1);
 }
 
 void h() {
@@ -76,5 +101,5 @@ void h() {
 // 入口函数，分别调用以上方法测试。
 int main() {
     g();
-    h();
+//    h();
 }

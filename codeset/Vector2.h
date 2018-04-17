@@ -29,4 +29,7 @@ public: //公开的方法，通过方法与属性进行交互
         delete[] elem;
     }
 
+    Vector2(const Vector2 &a);// 拷贝操作
+
+    Vector2(Vector2 &&a);// 移动构造函数
 };
