@@ -7,7 +7,7 @@
 
 
 #include <iostream>
-
+// 多态类型
 class Container {
 public:
     virtual double &operator[](int) = 0;//纯虚函数，
